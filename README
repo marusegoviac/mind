@@ -1,0 +1,17 @@
+# TO RUN BACKEND
+
+Create a mysql user with the following configuration:
+
+DB_DATABASE=mind
+DB_PASSWORD=Kreissibelius-77
+
+Create a database with the same name and grant all privileges
+
+On Backend folder:
+1) php artisan migrate
+2) php artisan serve
+
+# TO RUN FRONTEND IN DEV
+
+1) npm install
+2) npm run dev
