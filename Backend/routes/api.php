@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', [UserController::class, 'logout']);
     Route::get('user', [UserController::class, 'user']);
     Route::resource('notes', NoteController::class); //Cette route "resource" contient toutes les routes nécessaries pour créer, lire, modifier et éfacer les notes.
+    Route::resource('tasks', TaskController::class);
   });
 });
 
