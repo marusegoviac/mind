@@ -22,7 +22,6 @@ class StoreNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
             'note_title' => 'required|string|max:255 ',
             'note_content' => 'required|string|max:255',
         ];
