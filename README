@@ -1,3 +1,14 @@
+# Mind
+
+A “personal growth” app
+
+## Prerequisites
+
+* Composer
+* PHP
+* NodeJS ^18 and NPM
+* MySql
+
 # TO RUN BACKEND
 
 Create a mysql user with the following configuration:
@@ -8,10 +19,13 @@ DB_PASSWORD=Kreissibelius-77
 Create a database with the same name and grant all privileges
 
 On Backend folder:
+1) composer i
+2) composer update
 1) php artisan migrate
 2) php artisan serve
 
 # TO RUN FRONTEND IN DEV
 
+On Frontend folder:
 1) npm install
 2) npm run dev

@@ -11,7 +11,6 @@ import Task from '/src/pages/Task.vue'
 import Notes from '/src/pages/Notes.vue'
 import Creernote from '/src/pages/Creernote.vue'
 
-
 const router = createRouter({
     history: createWebHistory(),
 
@@ -23,7 +22,6 @@ const router = createRouter({
         { path: '/self-care-task', name: 'Task', component: Task },
         { path: '/notes', name: 'Notes', component: Notes },
         { path: '/note', name: 'Note', component: Creernote }
-
     ]
 })
 

@@ -1,21 +1,49 @@
-<script setup>
-/*import Signin from "/src/pages/Signin.vue";*/
-/*import Login from "/src/pages/Login.vue";*/
-/*import Dashboard from "/src/pages/Dashboard.vue";*/
-/*import Selfcare from "/src/pages/SelfCare.vue";*/
-/*import Selfcare from '/src/pages/Selfcare.vue';*/
-/*import Creernote from "/src/pages/Creernote.vue";*/
-/*import Task from "/src/pages/Task.vue";*/
-import Notes from "/src/pages/Notes.vue";
-</script>
-
 <template>
   <router-view></router-view>
-  <!-- <Signin></Signin> -->
-  <!--<Login></Login>-->
-  <!--<Dashboard></Dashboard>-->
-  <!-- <Selfcare></Selfcare> -->
-  <!-- <Creernote></Creernote> -->
-  <!--<Task></Task>-->
-  <!--<Notes></Notes>-->
 </template>
+
+<script>
+import { ref, computed, defineComponent, provide } from 'vue';
+import { success } from "src/utils/notify";
+import axios from "axios";
+
+export default defineComponent({
+  name: "App",
+  setup() {
+    // Inject 
+    const session = ref(false);
+    const userInfo = ref(false);
+
+    provide('session', {
+      get: () => {
+        return {
+          session: computed(() => session.value),
+          info: computed(() => userInfo.value),
+          active: isActiveSession()
+        }
+      },
+      logout: onLogout,
+    })
+
+    // Functions
+    const onLogout = async () => {
+      try {
+        await axios.get(`${process.env.API_URL}/auth/logout`);
+        success('See you later');
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+        cleanSession();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    const cleanSession = () => {
+      session.value = false;
+      userInfo.value = false;
+      // TODO: clean LS login info.
+    }
+
+    // TODO: when user login, save on LS all info.
+  }
+})
+</script>
