@@ -17,7 +17,7 @@
             >
             <div class="mt-2">
               <input
-                
+                v-model.trim="dataForm.name"
                 id="name"
                 name="name"
                 type="text"
@@ -37,7 +37,7 @@
             >
             <div class="mt-2">
               <input
-                
+                v-model.trim="dataForm.email"
                 id="email"
                 name="email"
                 type="email"
@@ -59,7 +59,7 @@
             </div>
             <div class="mt-2">
               <input
-                
+                v-model.trim="dataForm.password"
                 id="password"
                 name="password"
                 type="password"
@@ -74,10 +74,11 @@
           <div>
             <button
               type="submit"
+              :disabled="isLoading"
               class="flex w-full justify-center rounded-lg bg-midnight p-3 text-md text-white"
-              @click="register()"
+              @click.prevent="onSignUp()"
             >
-              Suivant
+              {{ isLoading ? "Loading ..." : "Suivant" }}
             </button>
           </div>
         </form>
@@ -97,13 +98,69 @@
 </template>
 
 <script>
+import { inject, ref } from "vue";
 import { useRouter } from 'vue-router';
+import axios from "axios";
 
 export default {
   setup() {
     const router = useRouter();
+
+    // Inject
+    const sessionValue = inject('session');
+
+    const isLoading = ref(false);
+    const dataForm = ref({
+      name: '',
+      email: '',
+      password: '',
+    })
     
-    return {}
+    // * Sign up user *
+    const onSignUp = async () => {
+      const { name, email, password } = dataForm.value;
+      const regExEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+      console.log({name, email, password})
+      if (!name || !email || !password) {
+        // TODO: user toaster
+        return console.error("All fields are required to sign up");
+      }
+      if (password.length < 8) {
+        return console.error("Please enter a strong password");
+      }
+      if (!regExEmail.test(email)) {
+        return console.error("Please enter a valid email");
+      }
+
+      isLoading.value = true;
+      try {
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, {
+          name,
+          email,
+          password
+        });
+        if (!data.accessToken) return console.error("An error has occurred registering, try again later.");
+
+        // Update session value and redirect to dashboard
+        localStorage.setItem('jwt', data.accessToken);
+        isLoading.value = false;
+        sessionValue.active();
+      } catch (error) {
+        console.error(error);
+        isLoading.value = false;
+      }
+    }
+
+    return {
+      // Data
+      dataForm,
+      isLoading,
+      // Functions
+      onSignUp,
+      // Utils
+      router,
+    }
   }
 }
 </script>

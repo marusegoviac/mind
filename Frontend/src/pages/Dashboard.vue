@@ -13,9 +13,11 @@
     <!--User button-->
     <button
       type="button"
-      class="absolute top-2 right-2 p-2 text-sm font-medium text-gray bg-sunset rounded-full"
+      class="absolute top-2 right-2 p-3 text-sm font-medium text-gray bg-sunset rounded-full"
+      @click="onLogout"
     >
-      <img src="/src/assets/icons/house.png" class="h-8" />
+      <img src="/src/assets/icons/settings.png" class="h-5" />
+      <!-- solid style -->
     </button>
 
     <div class="h-2/5">
@@ -92,3 +94,31 @@
     </div>
   </div>
 </template>
+
+<script>
+import { inject } from "vue";
+import { useRouter } from 'vue-router';
+
+export default {
+  setup() {
+    const router = useRouter();
+
+    // Inject
+    const sessionValue = inject('session');
+
+    const onLogout = () => {
+      sessionValue.logout();
+      return router.push({ name: 'Login' })
+    }
+
+    return {
+      // Data
+      sessionValue,
+      // Functions
+      onLogout,
+      // Utils
+      router,
+    }
+  }
+}
+</script>
