@@ -22,7 +22,7 @@
       <div
         class="mt-0 bg-creme h-48 flex flex-no-wrap overflow-x-scroll scrolling-touch hide-scroll-bar items-start"
       >
-      <!-- v-for="task in tasks" -->
+        <!-- TODO: add a message when there are no tasks -->
         <Task
           v-for="task in tasks"
           :key="task.id"
