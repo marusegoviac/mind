@@ -6,6 +6,7 @@ use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -23,11 +24,16 @@ class NoteController extends Controller
      */
     public function store(StoreNoteRequest $request)
     {
-        $note = Note::create($request->validated());
-        $note->user_id = auth()->id();
 
-        return NoteResource::make($note);
-
+        $request->validate([
+            'note_title' => 'required|string',
+            'note_content' => 'required|string',
+        ]);
+        $note = new Note([
+            'note_title' => $request->note_title,
+            'note_content' => $request->note_content,
+        ]);
+        Auth::user()->notes()->save($note);
     }
 
     /**
@@ -44,7 +50,6 @@ class NoteController extends Controller
     public function update(UpdateNoteRequest $request, Note $note)
     {
         $note->update($request->validated());
-        $note->user_id = auth()->id();
 
         return NoteResource::make($note);
     }
