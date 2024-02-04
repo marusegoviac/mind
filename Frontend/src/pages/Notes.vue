@@ -84,7 +84,7 @@ import axios from 'axios';
 
 export default {
   components: {
-    Note: defineAsyncComponent(() => import('../components/Note.vue')),
+    Note: defineAsyncComponent(() => import('/src/components/Note.vue')),
   },
   setup() {
     const router = useRouter();

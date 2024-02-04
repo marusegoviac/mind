@@ -14,7 +14,7 @@
       >
         <img src="/src/assets/icons/chevron-left.png" class="h-5" />
       </button>
-      <h2 class="inline text-2xl text-black">Task</h2>
+      <h2 class="inline text-2xl text-black">{{ task.task_title }}</h2>
     </div>
     <div class="h-4/5">
       <div class="my-4">
@@ -22,7 +22,7 @@
           Objectif
         </p>
 				<p class="text-sm text-medium-gray my-5">
-					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores quibusdam nesciunt rem odio?
+					{{ task.task_objectif }}
 				</p>
       </div>
 
@@ -31,8 +31,7 @@
           Instructions
         </p>
 				<p class="text-sm text-medium-gray my-5">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam quaerat odio beatae. Nam eum delectus repellendus explicabo illo? Harum dignissimos repellendus voluptas obcaecati similique tempore consectetur quos veniam dolorum sunt?
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam quaerat odio beatae. Nam eum delectus repellendus explicabo illo?
+					{{ task.task_instructions }}
 				</p>
       </div>
 
@@ -68,27 +67,55 @@
 </template>
 
 <script>
-import { inject } from "vue";
-import { useRouter } from 'vue-router';
+import { inject, onMounted, ref } from "vue";
+import { useRouter, useRoute } from 'vue-router';
+import axios from 'axios';
+// TODO: use isLoading on the HTML.
 
 export default {
   setup() {
     const router = useRouter();
+    const route = useRoute();
 
     // Inject
     const sessionValue = inject('session');
     const { session } = sessionValue.get()
 
-    const onLogout = () => {
-      sessionValue.logout();
-      return router.push({ name: 'Login' })
+    // Data
+    const isLoading = ref(false);
+    const task = ref({
+      task_title: "",
+      task_objectif: "",
+      task_instructions: "",
+    })
+
+    onMounted(() => getTask(route.params.id));
+
+    const getTask = async (id) => {
+      isLoading.value = true;
+      const jwt = localStorage.getItem('jwt');
+
+      try {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/auth/tasks/${id}`,
+          {
+            headers: { Authorization: `Bearer ${jwt}` }
+          }
+        );
+        if (!data) return console.log("Could not found this task, try again later.")
+
+        task.value = data.data;
+        isLoading.value = false;
+      } catch (error) {
+        console.error("An error has occurred obtaining the task, try again later.");
+        console.error(error);
+        isLoading.value = false;
+      }
     }
 
     return {
       // Data
       session,
-      // Functions
-      onLogout,
+      task,
       // Utils
       router,
     }
