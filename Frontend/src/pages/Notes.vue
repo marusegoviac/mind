@@ -43,7 +43,7 @@
         v-else-if="isLoading && (!notes || !notes.length)"
         class="mx-auto mt-32"
       >
-        <p class="text-medium-gray mx-10 text-center mt-4">Loading...</p>
+        <p class="text-medium-gray mx-10 text-center mt-4">Chargement...</p>
       </div>
       <div v-else>
         <div class="mt-32 h-32">

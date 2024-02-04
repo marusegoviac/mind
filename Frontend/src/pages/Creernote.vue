@@ -61,7 +61,7 @@
             :disabled="isLoading"
             @click.prevent="onSubmit()"
           >
-            {{ isLoading ? "Loading ..." : "Suivant" }}
+            {{ isLoading ? "Chargement..." : "Suivant" }}
           </button>
         </div>
       </form>
@@ -122,7 +122,7 @@ export default {
       const { title, content } = dataForm.value;
 
       if (!content || !title) {
-        return (textError.value = "All fields are required to create a note");
+        return (textError.value = "Tous les champs sont obligatoires pour créer une note");
       }
 
       isLoading.value = true;

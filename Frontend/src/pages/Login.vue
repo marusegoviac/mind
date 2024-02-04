@@ -102,13 +102,13 @@ export default {
       const regExEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
       if (!email || !password) {
-        return (textError.value = "All fields are required to sign in");
+        return (textError.value = "Tous les champs sont obligatoires pour vous connecter");
       }
       if (password.length < 8) {
-        return (textError.value = "Please enter a strong password");
+        return (textError.value = "Veuillez entrer un mot de passe fort");
       }
       if (!regExEmail.test(email)) {
-        return (textError.value = "Please enter a valid email");
+        return (textError.value = "Veuillez entrer un email valide");
       }
 
       isLoading.value = true;

@@ -75,7 +75,7 @@
               class="flex w-full justify-center rounded-lg bg-midnight p-3 text-md text-white"
               @click.prevent="onSignUp()"
             >
-              {{ isLoading ? "Loading ..." : "Suivant" }}
+              {{ isLoading ? "Chargement ..." : "Suivant" }}
             </button>
           </div>
         </form>
@@ -121,13 +121,13 @@ export default {
       const regExEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
       if (!name || !email || !password) {
-        return (textError.value = "All fields are required to sign up");
+        return (textError.value = "Tous les champs sont obligatoires pour s'inscrire");
       }
       if (password.length < 8) {
-        return (textError.value = "Please enter a strong password");
+        return (textError.value = "Veuillez entrer un mot de passe fort");
       }
       if (!regExEmail.test(email)) {
-        return (textError.value = "Please enter a valid email");
+        return (textError.value = "Veuillez entrer un email valide");
       }
 
       isLoading.value = true;
