@@ -37,6 +37,7 @@
             :key="note.id"
             :text="note.note_title"
             :content="note.note_content"
+            class="my-3 px-4"
           />
         </div>
         <div v-else-if="isLoading">
