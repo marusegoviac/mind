@@ -30,22 +30,29 @@
       <div
         class="my-5 bg-creme notes-container overflow-scroll scrolling-touch hide-scroll-bar items-start"
       >
-        <!-- TODO: add styles to loading and no notes available -->
         <div v-if="notes && notes.length">
           <Note
             v-for="note in notes"
             :key="note.id"
             :text="note.note_title"
             :content="note.note_content"
-            class="my-3 px-4"
+            class="my-3 px-4 bg-mint"
           />
         </div>
-        <div v-else-if="isLoading">
-          Loading...
+        <div v-else-if="isLoading && (!notes || !notes.length)" class="mx-auto mt-32">
+          <p class="text-medium-gray mx-10 text-center mt-4">
+            Loading...
+          </p>
         </div>
         <div v-else>
-          No notes available, try adding one.
+          <div class="mt-32 h-32">
+            <img src="/src/assets/icons/philosophy.png" class="h-full mx-auto" />
+            <p class="text-medium-gray mx-10 text-center mt-4">
+              Oh, on dirait que tu n'as pas de notes, fais une pause
+            </p>
+          </div>
         </div>
+
       </div>
       <div
         class="absolute bottom-3 mt-4 py-3 px-6 h-14 bg-white rounded-full justify-items-center"
@@ -124,6 +131,7 @@ export default {
       // Data
       session,
       notes,
+      isLoading,
       // Utils
       router,
     }
