@@ -1,7 +1,3 @@
-<script setup>
-/*import ContentCard from '../components/ContentCard.vue';*/
-</script>
-
 <style scoped>
 .bordered {
   border-inline: 1px solid rgb(241, 241, 241);
@@ -26,7 +22,10 @@
         class="my-5 bg-creme notes-container overflow-scroll scrolling-touch hide-scroll-bar items-start"
       >
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div class="mb-2">
+          <div
+            class="mb-2"
+            @click.prevent="router.push({ name: 'Note' })"
+          >
             <p class="text-gray text-md">Premier jour</p>
           </div>
           <div>
@@ -34,7 +33,10 @@
           </div>
         </div>
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div class="mb-2">
+          <div
+            class="mb-2"
+            @click.prevent="router.push({ name: 'Note' })"
+          >
             <p class="text-gray text-md">Premier jour</p>
           </div>
           <div>
@@ -42,7 +44,10 @@
           </div>
         </div>
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div class="mb-2">
+          <div
+            class="mb-2"
+            @click.prevent="router.push({ name: 'Note' })"
+          >
             <p class="text-gray text-md">Premier jour</p>
           </div>
           <div>
@@ -50,7 +55,10 @@
           </div>
         </div>
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div class="mb-2">
+          <div
+            class="mb-2"
+            @click.prevent="router.push({ name: 'Note' })"
+          >
             <p class="text-gray text-md">Premier jour</p>
           </div>
           <div>
@@ -58,7 +66,10 @@
           </div>
         </div>
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div class="mb-2">
+          <div
+            class="mb-2"
+            @click.prevent="router.push({ name: 'Note' })"
+          >
             <p class="text-gray text-md">Premier jour</p>
           </div>
           <div>
@@ -74,12 +85,14 @@
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white"
+            @click.prevent="router.push({ name: 'Dashboard' })"
           >
             <img src="/src/assets/icons/house.png" class="h-5 w-6" />
           </button>
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white bordered"
+            @click.prevent="router.push({ name: 'Selfcare' })"
           >
             <img src="/src/assets/icons/love.png" class="h-5 w-6" />
           </button>
@@ -96,5 +109,23 @@
 </template>
 
 <script>
+import { inject } from "vue";
+import { useRouter } from 'vue-router';
 
+export default {
+  setup() {
+    const router = useRouter();
+
+    // Inject
+    const sessionValue = inject('session');
+    const { session } = sessionValue.get()
+
+    return {
+      // Data
+      session,
+      // Utils
+      router,
+    }
+  }
+}
 </script>

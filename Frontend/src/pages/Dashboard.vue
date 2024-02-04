@@ -1,7 +1,3 @@
-<script setup>
-/*import ContentCard from '../components/ContentCard.vue';*/
-</script>
-
 <style scoped>
 .bordered {
   border-inline: 1px solid rgb(241, 241, 241);
@@ -27,7 +23,7 @@
 
     <!--Content Area-->
     <div class="bg-creme rounded-t-lg h-3/5 w-screen pt-10 px-10 pb-0">
-      <h2 class="text-2xl text-black">Salut, Maria</h2>
+      <h2 class="text-2xl text-black">Salut, {{ session?.name }}</h2>
       <div class="my-4">
         <p class="text-sm text-medium-gray">
           Choisi ce que tu veux faire aujourd'hui
@@ -38,33 +34,43 @@
       >
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Note' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
+          
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Note' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
+          
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Note' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
+          
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Note' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
+          
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Note' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
+          
         </div>
       </div>
       <div
@@ -80,12 +86,14 @@
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white bordered"
+            @click.prevent="router.push({ name: 'Selfcare' })"
           >
             <img src="/src/assets/icons/love.png" class="h-5 w-6" />
           </button>
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white"
+            @click.prevent="router.push({ name: 'Notes' })"
           >
             <img src="/src/assets/icons/pencil.png" class="h-5 w-6" />
           </button>
@@ -105,6 +113,7 @@ export default {
 
     // Inject
     const sessionValue = inject('session');
+    const { session } = sessionValue.get()
 
     const onLogout = () => {
       sessionValue.logout();
@@ -113,7 +122,7 @@ export default {
 
     return {
       // Data
-      sessionValue,
+      session,
       // Functions
       onLogout,
       // Utils

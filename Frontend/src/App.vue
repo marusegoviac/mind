@@ -13,6 +13,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const session = ref(false);
+
     // Functions
     const onLogout = async () => {
       const jwt = localStorage.getItem('jwt');
@@ -34,24 +36,27 @@ export default defineComponent({
         const { data } = await axios.get(`${API_URL}/auth/user`, {
           headers: { Authorization: `Bearer ${jwt}` }
         });
-        console.log('obtained session: ', data);
-        if (!data) console.error("Cannot obtain the session data");
-
-        session.value = data;
-        localStorage.setItem('jwt', JSON.stringify(data.accessToken));
+        
+        if (data) {
+          session.value = data;
+          console.log("session.value is now: ", session.value);
+        } else {
+          console.error("Cannot obtain the session data");
+          localStorage.removeItem('jwt');
+          return router.push({ name: 'Login' })
+        }
 
         if ((route.name == 'Signup' || route.name == 'Login')) {
           return router.push({ name: 'Dashboard' })
         }
-
       } catch (error) {
+        localStorage.removeItem('jwt');
         console.error(error);
+        return router.push({ name: 'Login' })
       }
     }
 
     // Inject 
-    const session = ref(false);
-
     provide('session', {
       get: () => {
         return {

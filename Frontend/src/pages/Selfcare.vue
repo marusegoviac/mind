@@ -1,7 +1,3 @@
-<script setup>
-/*import ContentCard from '../components/ContentCard.vue';*/
-</script>
-
 <style scoped>
 .bordered {
   border-inline: 1px solid rgb(241, 241, 241);
@@ -28,30 +24,35 @@
       >
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Task' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Task' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Task' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Task' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
         </div>
         <div
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Task' })"
         >
           <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
           <p class="text-medium-gray">Self Care</p>
@@ -64,6 +65,7 @@
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white"
+            @click.prevent="router.push({ name: 'Dashboard' })"
           >
             <img src="/src/assets/icons/house.png" class="h-5 w-6" />
           </button>
@@ -76,6 +78,7 @@
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white"
+            @click.prevent="router.push({ name: 'Notes' })"
           >
             <img src="/src/assets/icons/pencil.png" class="h-5 w-6" />
           </button>
@@ -84,3 +87,25 @@
     </div>
   </div>
 </template>
+
+<script>
+import { inject } from "vue";
+import { useRouter } from 'vue-router';
+
+export default {
+  setup() {
+    const router = useRouter();
+
+    // Inject
+    const sessionValue = inject('session');
+    const { session } = sessionValue.get()
+
+    return {
+      // Data
+      session,
+      // Utils
+      router,
+    }
+  }
+}
+</script>

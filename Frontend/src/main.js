@@ -19,9 +19,9 @@ const router = createRouter({
         { path: '/register', name: 'Signup', component: Signup },
         { path: '/login', name: 'Login', component: Login },
         { path: '/self-care', name: 'Selfcare', component: Selfcare },
-        { path: '/self-care-task', name: 'Task', component: Task },
+        { path: '/self-care-task', name: 'Task', component: Task }, // TODO: it needs to add a query to the route to search task by ID
         { path: '/notes', name: 'Notes', component: Notes },
-        { path: '/note', name: 'Note', component: Creernote }
+        { path: '/note', name: 'Note', component: Creernote } // TODO: it needs to add a query to the route to search note by ID
     ]
 })
 
