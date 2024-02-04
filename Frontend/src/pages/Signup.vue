@@ -89,6 +89,7 @@
           <a
             href="#"
             class="font-semibold leading-6 text-midnight"
+            @click.prevent="router.push({ name: 'Login' })"
             >Se connecter</a
           >
         </p>
@@ -121,7 +122,6 @@ export default {
       const { name, email, password } = dataForm.value;
       const regExEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-      console.log({name, email, password})
       if (!name || !email || !password) {
         // TODO: user toaster
         return console.error("All fields are required to sign up");
@@ -140,7 +140,7 @@ export default {
           email,
           password
         });
-        if (!data.accessToken) return console.error("An error has occurred registering, try again later.");
+        if (!data.accessToken) return console.error("An error has occurred while register, try again later.");
 
         // Update session value and redirect to dashboard
         localStorage.setItem('jwt', data.accessToken);

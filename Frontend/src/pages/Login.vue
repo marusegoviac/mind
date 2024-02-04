@@ -15,6 +15,7 @@
             >
             <div class="mt-2">
               <input
+                v-model.trim="dataForm.email"
                 id="email"
                 name="email"
                 type="email"
@@ -34,6 +35,7 @@
             </div>
             <div class="mt-2">
               <input
+                v-model.trim="dataForm.password"
                 id="password"
                 name="password"
                 type="password"
@@ -48,7 +50,9 @@
           <div>
             <button
               type="submit"
+              :disabled="isLoading"
               class="flex w-full justify-center rounded-lg bg-midnight p-3 text-md text-white"
+              @click.prevent="onSignIn()"
             >
               Me connecter
             </button>
@@ -58,7 +62,7 @@
         <p class="my-5 text-center text-sm text-medium-gray">
           Tu n'as pas un compte ?
           {{ " " }}
-          <a href="#" class="font-semibold leading-6 text-midnight"
+          <a href="#" class="font-semibold leading-6 text-midnight" @click.prevent="router.push({ name: 'Signup' })"
             >S'enregistrer</a
           >
         </p>
@@ -66,3 +70,68 @@
     </div>
   </div>
 </template>
+
+<script>
+import { inject, ref } from "vue";
+import { useRouter } from 'vue-router';
+import axios from "axios";
+
+export default {
+  setup() {
+    const router = useRouter();
+
+    // Inject
+    const sessionValue = inject('session');
+
+    const isLoading = ref(false);
+    const dataForm = ref({
+      email: '',
+      password: '',
+    })
+    
+    // * Sign in user *
+    const onSignIn = async () => {
+      const { email, password } = dataForm.value;
+      const regExEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+      if (!email || !password) {
+        // TODO: user toaster
+        return console.error("All fields are required to sign in");
+      }
+      if (password.length < 8) {
+        return console.error("Please enter a strong password");
+      }
+      if (!regExEmail.test(email)) {
+        return console.error("Please enter a valid email");
+      }
+
+      isLoading.value = true;
+      try {
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
+          email,
+          password
+        });
+        if (!data.accessToken) return console.error("An error has occurred while login, try again later.");
+
+        // Update session value and redirect to dashboard
+        localStorage.setItem('jwt', data.accessToken);
+        isLoading.value = false;
+        sessionValue.active();
+      } catch (error) {
+        console.error("Username or password incorrect, check your data and try again");
+        isLoading.value = false;
+      }
+    }
+
+    return {
+      // Data
+      dataForm,
+      isLoading,
+      // Functions
+      onSignIn,
+      // Utils
+      router,
+    }
+  }
+}
+</script>
