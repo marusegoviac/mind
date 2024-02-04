@@ -22,6 +22,7 @@
           <label for="name" class="block text-sm text-medium-gray">Titre</label>
           <div class="mt-2">
             <input
+              v-model.trim="dataForm.title"
               id="title"
               name="title"
               type="text"
@@ -38,6 +39,7 @@
           >
           <div class="mt-2">
             <textarea
+              v-model.trim="dataForm.content"
               id="content"
               name="content"
               type="text"
@@ -52,8 +54,10 @@
           <button
             type="submit"
             class="flex w-full justify-center rounded-lg bg-midnight p-3 text-md text-white"
+            :disabled="isLoading"
+            @click.prevent="onSubmit()"
           >
-            Suivant
+            {{ isLoading ? "Loading ..." : "Suivant" }}
           </button>
         </div>
       </form>
@@ -90,8 +94,9 @@
 </template>
 
 <script>
-import { inject } from "vue";
+import { inject, ref } from "vue";
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export default {
   setup() {
@@ -101,9 +106,56 @@ export default {
     const sessionValue = inject('session');
     const { session } = sessionValue.get()
 
+    const isLoading = ref(false);
+    const dataForm = ref({
+      title: '',
+      content: '',
+    })
+
+    // * Send the note info to API *
+    const onSubmit = async () => {
+      const { title, content } = dataForm.value;
+
+      console.log({ title, content })
+
+      if (!content || !title) {
+        // TODO: user toaster
+        return console.error("All fields are required to create a note");
+      }
+
+      isLoading.value = true;
+      const jwt = localStorage.getItem('jwt');
+
+      const bodyRequest = {
+        user_id: session.value.id,
+        note_content: content,
+        note_title: title
+      };
+
+      console.log("Will send this body request: ", bodyRequest);
+      try {
+        await axios.post(`${import.meta.env.VITE_API_URL}/auth/notes`,
+          bodyRequest,
+          {
+            headers: { Authorization: `Bearer ${jwt}` }
+          }
+        );
+        isLoading.value = false;
+        router.push({ name: 'Notes' });
+      } catch (error) {
+        console.error("An error has occurred while registering note, try again later.");
+        console.error(error);
+        isLoading.value = false;
+      }
+    }
+
     return {
       // Data
       session,
+      dataForm,
+      isLoading,
+      // Functions
+      onSubmit,
       // Utils
       router,
     }
