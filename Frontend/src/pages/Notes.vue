@@ -23,7 +23,6 @@
     <div class="h-1/5">
       <img src="/src/assets/img/signin.jpg" class="h-full" />
     </div>
-    <!-- <ContentCard></ContentCard> -->
 
     <!--Content Area-->
     <div class="bg-creme rounded-t-lg h-4/5 w-screen pt-10 px-10 pb-0">
@@ -31,57 +30,21 @@
       <div
         class="my-5 bg-creme notes-container overflow-scroll scrolling-touch hide-scroll-bar items-start"
       >
-        <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div
-            class="mb-2"
-          >
-            <p class="text-gray text-md">Premier jour</p>
-          </div>
-          <div>
-            <p class="text-medium-gray text-sm">01/01/2024</p>
-          </div>
+        <!-- TODO: add styles to loading and no notes available -->
+        <div v-if="notes && notes.length">
+          <Note
+            v-for="note in notes"
+            :key="note.id"
+            :text="note.note_title"
+            :content="note.note_content"
+          />
         </div>
-        <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div
-            class="mb-2"
-          >
-            <p class="text-gray text-md">Premier jour</p>
-          </div>
-          <div>
-            <p class="text-medium-gray text-sm">01/01/2024</p>
-          </div>
+        <div v-else-if="isLoading">
+          Loading...
         </div>
-        <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div
-            class="mb-2"
-          >
-            <p class="text-gray text-md">Premier jour</p>
-          </div>
-          <div>
-            <p class="text-medium-gray text-sm">01/01/2024</p>
-          </div>
+        <div v-else>
+          No notes available, try adding one.
         </div>
-        <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div
-            class="mb-2"
-          >
-            <p class="text-gray text-md">Premier jour</p>
-          </div>
-          <div>
-            <p class="text-medium-gray text-sm">01/01/2024</p>
-          </div>
-        </div>
-        <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
-          <div
-            class="mb-2"
-          >
-            <p class="text-gray text-md">Premier jour</p>
-          </div>
-          <div>
-            <p class="text-medium-gray text-sm">01/01/2024</p>
-          </div>
-        </div>
-        
       </div>
       <div
         class="absolute bottom-3 mt-4 py-3 px-6 h-14 bg-white rounded-full justify-items-center"
@@ -114,10 +77,14 @@
 </template>
 
 <script>
-import { inject } from "vue";
+import { inject, defineAsyncComponent, onMounted, ref } from "vue";
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export default {
+  components: {
+    Note: defineAsyncComponent(() => import('../components/Note.vue')),
+  },
   setup() {
     const router = useRouter();
 
@@ -125,9 +92,37 @@ export default {
     const sessionValue = inject('session');
     const { session } = sessionValue.get()
 
+    // Data
+    const isLoading = ref(false);
+    const notes = ref([])
+
+    onMounted(() => getNotes());
+
+    const getNotes = async () => {
+      isLoading.value = true;
+      const jwt = localStorage.getItem('jwt');
+
+      try {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/auth/notes`,
+          {
+            headers: { Authorization: `Bearer ${jwt}` }
+          }
+        );
+        if (!data || !data.data || !data.data.length) return console.log("Looks that you dont have notes, add one.")
+
+        notes.value = data.data;
+        isLoading.value = false;
+      } catch (error) {
+        console.error("An error has occurred querying notes, try again later.");
+        console.error(error);
+        isLoading.value = false;
+      }
+    }
+
     return {
       // Data
       session,
+      notes,
       // Utils
       router,
     }
