@@ -10,6 +10,16 @@
 
 <template>
   <div class="container static h-screen bg-white">
+    <!--Register Note Button-->
+    <button
+      type="button"
+      class="absolute top-4 right-4 p-2 text-sm font-medium text-gray bg-sunset rounded-full"
+      @click.prevent="router.push({ name: 'Note' })"
+    >
+      <img src="/src/assets/icons/plus.png" class="h-8" />
+      <!-- solid style -->
+    </button>
+
     <div class="h-1/5">
       <img src="/src/assets/img/signin.jpg" class="h-full" />
     </div>
@@ -24,7 +34,6 @@
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
           <div
             class="mb-2"
-            @click.prevent="router.push({ name: 'Note' })"
           >
             <p class="text-gray text-md">Premier jour</p>
           </div>
@@ -35,7 +44,6 @@
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
           <div
             class="mb-2"
-            @click.prevent="router.push({ name: 'Note' })"
           >
             <p class="text-gray text-md">Premier jour</p>
           </div>
@@ -46,7 +54,6 @@
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
           <div
             class="mb-2"
-            @click.prevent="router.push({ name: 'Note' })"
           >
             <p class="text-gray text-md">Premier jour</p>
           </div>
@@ -57,7 +64,6 @@
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
           <div
             class="mb-2"
-            @click.prevent="router.push({ name: 'Note' })"
           >
             <p class="text-gray text-md">Premier jour</p>
           </div>
@@ -68,7 +74,6 @@
         <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
           <div
             class="mb-2"
-            @click.prevent="router.push({ name: 'Note' })"
           >
             <p class="text-gray text-md">Premier jour</p>
           </div>

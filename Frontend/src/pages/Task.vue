@@ -10,6 +10,7 @@
       <button
         type="button"
         class="absolute top-9 left-10 py-2 text-sm font-medium text-gray bg-transparent"
+        @click.prevent="router.push({ name: 'Selfcare' })"
       >
         <img src="/src/assets/icons/chevron-left.png" class="h-5" />
       </button>
@@ -42,18 +43,21 @@
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white"
+            @click.prevent="router.push({ name: 'Dashboard' })"
           >
             <img src="/src/assets/icons/house.png" class="h-5 w-6" />
           </button>
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white bordered"
+            @click.prevent="router.push({ name: 'Selfcare' })"
           >
             <img src="/src/assets/icons/love.png" class="h-5 w-6" />
           </button>
           <button
             type="button"
             class="px-7 py-2 text-sm font-medium text-gray bg-white"
+            @click.prevent="router.push({ name: 'Notes' })"
           >
             <img src="/src/assets/icons/pencil.png" class="h-5 w-6" />
           </button>
@@ -62,3 +66,32 @@
     </div>
   </div>
 </template>
+
+<script>
+import { inject } from "vue";
+import { useRouter } from 'vue-router';
+
+export default {
+  setup() {
+    const router = useRouter();
+
+    // Inject
+    const sessionValue = inject('session');
+    const { session } = sessionValue.get()
+
+    const onLogout = () => {
+      sessionValue.logout();
+      return router.push({ name: 'Login' })
+    }
+
+    return {
+      // Data
+      session,
+      // Functions
+      onLogout,
+      // Utils
+      router,
+    }
+  }
+}
+</script>

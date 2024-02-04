@@ -9,10 +9,10 @@
     <!--User button-->
     <button
       type="button"
-      class="absolute top-2 right-2 p-3 text-sm font-medium text-gray bg-sunset rounded-full"
+      class="absolute top-4 right-4 p-3 text-sm font-medium text-gray bg-sunset rounded-full"
       @click="onLogout"
     >
-      <img src="/src/assets/icons/settings.png" class="h-5" />
+      <img src="/src/assets/icons/settings.png" class="h-6" />
       <!-- solid style -->
     </button>
 
