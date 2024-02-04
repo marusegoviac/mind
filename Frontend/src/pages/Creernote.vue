@@ -50,6 +50,10 @@
           </div>
         </div>
 
+        <p v-if="textError" class="mt-2 text-sm text-medium-red">
+          {{ textError }}
+        </p>
+
         <div>
           <button
             type="submit"
@@ -95,70 +99,71 @@
 
 <script>
 import { inject, ref } from "vue";
-import { useRouter } from 'vue-router';
-import axios from 'axios';
+import { useRouter } from "vue-router";
+import axios from "axios";
 
 export default {
   setup() {
     const router = useRouter();
 
     // Inject
-    const sessionValue = inject('session');
-    const { session } = sessionValue.get()
+    const sessionValue = inject("session");
+    const { session } = sessionValue.get();
 
     const isLoading = ref(false);
     const dataForm = ref({
-      title: '',
-      content: '',
-    })
+      title: "",
+      content: "",
+    });
+    const textError = ref("");
 
     // * Send the note info to API *
     const onSubmit = async () => {
       const { title, content } = dataForm.value;
 
-      console.log({ title, content })
-
       if (!content || !title) {
-        // TODO: user toaster
-        return console.error("All fields are required to create a note");
+        return (textError.value = "All fields are required to create a note");
       }
 
       isLoading.value = true;
-      const jwt = localStorage.getItem('jwt');
+      const jwt = localStorage.getItem("jwt");
 
       const bodyRequest = {
         user_id: session.value.id,
         note_content: content,
-        note_title: title
+        note_title: title,
       };
 
-      console.log("Will send this body request: ", bodyRequest);
       try {
-        await axios.post(`${import.meta.env.VITE_API_URL}/auth/notes`,
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/auth/notes`,
           bodyRequest,
           {
-            headers: { Authorization: `Bearer ${jwt}` }
+            headers: { Authorization: `Bearer ${jwt}` },
           }
         );
         isLoading.value = false;
-        router.push({ name: 'Notes' });
+        textError.value = "";
+        router.push({ name: "Notes" });
       } catch (error) {
-        console.error("An error has occurred while registering note, try again later.");
+        textError.value =
+          "An error has occurred while registering note, try again later.";
         console.error(error);
         isLoading.value = false;
       }
-    }
+    };
 
     return {
       // Data
       session,
       dataForm,
       isLoading,
+      textError,
       // Functions
       onSubmit,
       // Utils
       router,
-    }
-  }
-}
+    };
+  },
+};
 </script>

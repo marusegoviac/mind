@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 export default {
-  props:{
-    title:{
+  props: {
+    title: {
       required: true,
       type: String,
     },
-    id:{
+    id: {
       required: true,
       type: String,
     },
@@ -25,7 +25,7 @@ export default {
     return {
       // Data
       router,
-    }
-  }
-}
+    };
+  },
+};
 </script>

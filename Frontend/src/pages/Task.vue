@@ -18,21 +18,17 @@
     </div>
     <div class="h-4/5">
       <div class="my-4">
-        <p class="text-md text-gray">
-          Objectif
+        <p class="text-md text-gray">Objectif</p>
+        <p class="text-sm text-medium-gray my-5">
+          {{ task.task_objectif }}
         </p>
-				<p class="text-sm text-medium-gray my-5">
-					{{ task.task_objectif }}
-				</p>
       </div>
 
-			<div class="my-4">
-        <p class="text-md text-gray">
-          Instructions
+      <div class="my-4">
+        <p class="text-md text-gray">Instructions</p>
+        <p class="text-sm text-medium-gray my-5">
+          {{ task.task_instructions }}
         </p>
-				<p class="text-sm text-medium-gray my-5">
-					{{ task.task_instructions }}
-				</p>
       </div>
 
       <div
@@ -68,9 +64,8 @@
 
 <script>
 import { inject, onMounted, ref } from "vue";
-import { useRouter, useRoute } from 'vue-router';
-import axios from 'axios';
-// TODO: use isLoading on the HTML.
+import { useRouter, useRoute } from "vue-router";
+import axios from "axios";
 
 export default {
   setup() {
@@ -78,8 +73,8 @@ export default {
     const route = useRoute();
 
     // Inject
-    const sessionValue = inject('session');
-    const { session } = sessionValue.get()
+    const sessionValue = inject("session");
+    const { session } = sessionValue.get();
 
     // Data
     const isLoading = ref(false);
@@ -87,30 +82,34 @@ export default {
       task_title: "",
       task_objectif: "",
       task_instructions: "",
-    })
+    });
 
     onMounted(() => getTask(route.params.id));
 
     const getTask = async (id) => {
       isLoading.value = true;
-      const jwt = localStorage.getItem('jwt');
+      const jwt = localStorage.getItem("jwt");
 
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/auth/tasks/${id}`,
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/auth/tasks/${id}`,
           {
-            headers: { Authorization: `Bearer ${jwt}` }
+            headers: { Authorization: `Bearer ${jwt}` },
           }
         );
-        if (!data) return console.log("Could not found this task, try again later.")
+        if (!data)
+          return console.log("Could not found this task, try again later.");
 
         task.value = data.data;
         isLoading.value = false;
       } catch (error) {
-        console.error("An error has occurred obtaining the task, try again later.");
+        console.error(
+          "An error has occurred obtaining the task, try again later."
+        );
         console.error(error);
         isLoading.value = false;
       }
-    }
+    };
 
     return {
       // Data
@@ -118,7 +117,7 @@ export default {
       task,
       // Utils
       router,
-    }
-  }
-}
+    };
+  },
+};
 </script>

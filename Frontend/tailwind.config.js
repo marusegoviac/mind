@@ -30,6 +30,7 @@ export default {
       'black': '#2F2F2F',
       'gray': '#4F4E4E',
       'medium-gray': '#848484',
+      'medium-red': '#FF0000',
       'light-gray': '#DBDBDB',
       'creme': '#F4F0E7',
       'bubble-gum': '#EFD2D0',

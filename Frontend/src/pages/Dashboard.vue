@@ -40,26 +40,29 @@
           :title="task.task_title"
           :id="task.id"
           class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
-          @click.prevent="router.push({ name: 'Task', params: { id: task.id } })"
+          @click.prevent="
+            router.push({ name: 'Task', params: { id: task.id } })
+          "
         />
       </div>
-      <div v-else-if="isLoading && (!tasks || !tasks.length)" class="mx-auto mt-20">
-        <p class="text-medium-gray mx-10 text-center mt-4">
-          Loading...
-        </p>
+      <div
+        v-else-if="isLoading && (!tasks || !tasks.length)"
+        class="mx-auto mt-20"
+      >
+        <p class="text-medium-gray mx-10 text-center mt-4">Loading...</p>
       </div>
       <div v-else>
         <div class="mt-10 h-32">
           <img src="/src/assets/icons/philosophy.png" class="h-full mx-auto" />
           <p class="text-medium-gray mx-10 text-center mt-4">
-            Oh, on dirait que vous n'avez aucune tâche en attente, détendez-vous et ajoutez une tâche.
+            Oh, on dirait que vous n'avez aucune tâche en attente, détendez-vous
+            et ajoutez une tâche.
           </p>
         </div>
       </div>
       <div
         class="absolute bottom-3 mt-4 py-3 px-6 h-14 bg-white rounded-full justify-items-center"
       >
-        <!-- TODO: componetize this. -->
         <div class="inline-flex rounded-full igems-center" role="group">
           <button
             type="button"
@@ -89,42 +92,44 @@
 
 <script>
 import { inject, defineAsyncComponent, ref, onMounted } from "vue";
-import { useRouter } from 'vue-router';
-import axios from 'axios';
+import { useRouter } from "vue-router";
+import axios from "axios";
 
 export default {
   components: {
-    Task: defineAsyncComponent(() => import('/src/components/Task.vue')),
+    Task: defineAsyncComponent(() => import("/src/components/Task.vue")),
   },
   setup() {
     const router = useRouter();
 
     // Inject
-    const sessionValue = inject('session');
-    const { session } = sessionValue.get()
+    const sessionValue = inject("session");
+    const { session } = sessionValue.get();
 
     // Data
     const isLoading = ref(false);
-    const tasks = ref([])
+    const tasks = ref([]);
 
     onMounted(() => getTasks());
 
     const onLogout = () => {
       sessionValue.logout();
-      return router.push({ name: 'Login' })
-    }
+      return router.push({ name: "Login" });
+    };
 
     const getTasks = async () => {
       isLoading.value = true;
-      const jwt = localStorage.getItem('jwt');
+      const jwt = localStorage.getItem("jwt");
 
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/auth/tasks`,
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/auth/tasks`,
           {
-            headers: { Authorization: `Bearer ${jwt}` }
+            headers: { Authorization: `Bearer ${jwt}` },
           }
         );
-        if (!data || !data.data || !data.data.length) return console.log("Looks that you dont have tasks.")
+        if (!data || !data.data || !data.data.length)
+          return console.log("Looks that you dont have tasks.");
 
         tasks.value = data.data;
         isLoading.value = false;
@@ -133,7 +138,7 @@ export default {
         console.error(error);
         isLoading.value = false;
       }
-    }
+    };
 
     return {
       // Data
@@ -143,7 +148,7 @@ export default {
       onLogout,
       // Utils
       router,
-    }
-  }
-}
+    };
+  },
+};
 </script>

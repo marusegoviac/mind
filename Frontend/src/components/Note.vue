@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div
-      class="mb-2"
-    >
+    <div class="mb-2">
       <p class="text-gray text-md">{{ text }}</p>
     </div>
     <div>
@@ -12,10 +10,9 @@
 </template>
 
 <script>
-
 export default {
-  props:{
-    text:{
+  props: {
+    text: {
       required: true,
       type: String,
     },
@@ -25,10 +22,9 @@ export default {
     },
   },
   setup(props) {
-
     return {
       // Data
-    }
-  }
-}
+    };
+  },
+};
 </script>

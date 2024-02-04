@@ -39,10 +39,11 @@
           class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md"
         />
       </div>
-      <div v-else-if="isLoading && (!notes || !notes.length)" class="mx-auto mt-32">
-        <p class="text-medium-gray mx-10 text-center mt-4">
-          Loading...
-        </p>
+      <div
+        v-else-if="isLoading && (!notes || !notes.length)"
+        class="mx-auto mt-32"
+      >
+        <p class="text-medium-gray mx-10 text-center mt-4">Loading...</p>
       </div>
       <div v-else>
         <div class="mt-32 h-32">
@@ -85,37 +86,39 @@
 
 <script>
 import { inject, defineAsyncComponent, onMounted, ref } from "vue";
-import { useRouter } from 'vue-router';
-import axios from 'axios';
+import { useRouter } from "vue-router";
+import axios from "axios";
 
 export default {
   components: {
-    Note: defineAsyncComponent(() => import('/src/components/Note.vue')),
+    Note: defineAsyncComponent(() => import("/src/components/Note.vue")),
   },
   setup() {
     const router = useRouter();
 
     // Inject
-    const sessionValue = inject('session');
-    const { session } = sessionValue.get()
+    const sessionValue = inject("session");
+    const { session } = sessionValue.get();
 
     // Data
     const isLoading = ref(false);
-    const notes = ref([])
+    const notes = ref([]);
 
     onMounted(() => getNotes());
 
     const getNotes = async () => {
       isLoading.value = true;
-      const jwt = localStorage.getItem('jwt');
+      const jwt = localStorage.getItem("jwt");
 
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/auth/notes`,
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/auth/notes`,
           {
-            headers: { Authorization: `Bearer ${jwt}` }
+            headers: { Authorization: `Bearer ${jwt}` },
           }
         );
-        if (!data || !data.data || !data.data.length) return console.log("Looks that you dont have notes, add one.")
+        if (!data || !data.data || !data.data.length)
+          return console.log("Looks that you dont have notes, add one.");
 
         notes.value = data.data;
         isLoading.value = false;
@@ -124,7 +127,7 @@ export default {
         console.error(error);
         isLoading.value = false;
       }
-    }
+    };
 
     return {
       // Data
@@ -133,7 +136,7 @@ export default {
       isLoading,
       // Utils
       router,
-    }
-  }
-}
+    };
+  },
+};
 </script>
