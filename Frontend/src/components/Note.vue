@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
+  <div>
     <div
       class="mb-2"
     >

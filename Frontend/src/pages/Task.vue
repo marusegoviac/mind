@@ -10,7 +10,7 @@
       <button
         type="button"
         class="absolute top-9 left-10 py-2 text-sm font-medium text-gray bg-transparent"
-        @click.prevent="router.push({ name: 'Selfcare' })"
+        @click.prevent="router.go(-1)"
       >
         <img src="/src/assets/icons/chevron-left.png" class="h-5" />
       </button>

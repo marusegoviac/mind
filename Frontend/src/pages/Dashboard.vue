@@ -31,16 +31,30 @@
         </p>
       </div>
       <div
+        v-if="tasks && tasks.length"
         class="mt-0 bg-creme h-48 flex flex-no-wrap overflow-x-scroll scrolling-touch hide-scroll-bar items-start"
       >
-        <!-- TODO: add a message when there are no tasks -->
         <Task
           v-for="task in tasks"
           :key="task.id"
           :title="task.task_title"
           :id="task.id"
-          class="my-3 px-4"
+          class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          @click.prevent="router.push({ name: 'Task', params: { id: task.id } })"
         />
+      </div>
+      <div v-else-if="isLoading && (!tasks || !tasks.length)" class="mx-auto mt-20">
+        <p class="text-medium-gray mx-10 text-center mt-4">
+          Loading...
+        </p>
+      </div>
+      <div v-else>
+        <div class="mt-10 h-32">
+          <img src="/src/assets/icons/philosophy.png" class="h-full mx-auto" />
+          <p class="text-medium-gray mx-10 text-center mt-4">
+            Oh, on dirait que vous n'avez aucune tâche en attente, détendez-vous et ajoutez une tâche.
+          </p>
+        </div>
       </div>
       <div
         class="absolute bottom-3 mt-4 py-3 px-6 h-14 bg-white rounded-full justify-items-center"

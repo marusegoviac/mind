@@ -28,32 +28,31 @@
     <div class="bg-creme rounded-t-lg h-4/5 w-screen pt-10 px-10 pb-0">
       <h2 class="text-2xl text-black">Mes notes</h2>
       <div
+        v-if="notes && notes.length"
         class="my-5 bg-creme notes-container overflow-scroll scrolling-touch hide-scroll-bar items-start"
       >
-        <div v-if="notes && notes.length">
-          <Note
-            v-for="note in notes"
-            :key="note.id"
-            :text="note.note_title"
-            :content="note.note_content"
-            class="my-3 px-4 bg-mint"
-          />
-        </div>
-        <div v-else-if="isLoading && (!notes || !notes.length)" class="mx-auto mt-32">
+        <Note
+          v-for="note in notes"
+          :key="note.id"
+          :text="note.note_title"
+          :content="note.note_content"
+          class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md"
+        />
+      </div>
+      <div v-else-if="isLoading && (!notes || !notes.length)" class="mx-auto mt-32">
+        <p class="text-medium-gray mx-10 text-center mt-4">
+          Loading...
+        </p>
+      </div>
+      <div v-else>
+        <div class="mt-32 h-32">
+          <img src="/src/assets/icons/philosophy.png" class="h-full mx-auto" />
           <p class="text-medium-gray mx-10 text-center mt-4">
-            Loading...
+            Oh, on dirait que tu n'as pas de notes, fais une pause
           </p>
         </div>
-        <div v-else>
-          <div class="mt-32 h-32">
-            <img src="/src/assets/icons/philosophy.png" class="h-full mx-auto" />
-            <p class="text-medium-gray mx-10 text-center mt-4">
-              Oh, on dirait que tu n'as pas de notes, fais une pause
-            </p>
-          </div>
-        </div>
-
       </div>
+
       <div
         class="absolute bottom-3 mt-4 py-3 px-6 h-14 bg-white rounded-full justify-items-center"
       >
