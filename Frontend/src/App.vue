@@ -38,7 +38,6 @@ export default defineComponent({
 
         if (data) {
           session.value = data;
-          console.log("session.value is now: ", session.value);
         } else {
           console.error("Cannot obtain the session data");
           localStorage.removeItem("jwt");

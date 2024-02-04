@@ -134,8 +134,7 @@ export default {
         tasks.value = data.data;
         isLoading.value = false;
       } catch (error) {
-        console.error("An error has occurred querying tasks, try again later.");
-        console.error(error);
+        console.error("An error has occurred querying tasks, try again later.", error);
         isLoading.value = false;
       }
     };

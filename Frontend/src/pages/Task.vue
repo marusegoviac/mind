@@ -104,9 +104,9 @@ export default {
         isLoading.value = false;
       } catch (error) {
         console.error(
-          "An error has occurred obtaining the task, try again later."
+          "An error has occurred obtaining the task, try again later.",
+          error
         );
-        console.error(error);
         isLoading.value = false;
       }
     };
