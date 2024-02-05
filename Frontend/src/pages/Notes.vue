@@ -36,6 +36,7 @@
           :key="note.id"
           :text="note.note_title"
           :content="note.note_content"
+          :id="note.id"
         />
       </div>
       <div
@@ -84,7 +85,7 @@
 </template>
 
 <script>
-import { inject, defineAsyncComponent, onMounted, ref } from "vue";
+import { inject, defineAsyncComponent, onMounted, ref, provide } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 
@@ -98,6 +99,11 @@ export default {
     // Inject
     const sessionValue = inject("session");
     const { session } = sessionValue.get();
+    
+    // Provider
+    provide("notes", {
+      request: () => getNotes(),
+    });
 
     // Data
     const isLoading = ref(false);
