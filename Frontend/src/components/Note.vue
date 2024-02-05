@@ -2,10 +2,10 @@
   <div class="grid grid-cols-10 bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md">
     <div class="col-span-9">
       <div class="mb-2">
-        <p class="text-gray text-md">{{ text }}</p>
+        <p class="text-gray text-md">{{ text.substring(0, 25) + "..." }}</p>
       </div>
       <div class="">
-        <p class="text-medium-gray text-sm">{{ content }} - id {{ id }}</p>
+        <p class="text-medium-gray text-sm">{{ content.substring(0, 30) + "..." }}</p>
       </div>
     </div>
     <div class="col-1">
@@ -20,6 +20,7 @@
       </button>
     </div>
   </div>
+
 </template>
 
 <script>

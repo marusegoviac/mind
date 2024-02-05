@@ -64,7 +64,7 @@
             </div>
           </div>
 
-          <p v-if="textError" class="mt-2 text-sm text-medium-red">
+          <p v-if="textError" class="text-xs text-medium-red">
             {{ textError }}
           </p>
 
@@ -80,7 +80,7 @@
           </div>
         </form>
 
-        <p class="mt-10 text-center text-sm text-medium-gray">
+        <p class="mt-5 text-center text-sm text-medium-gray">
           Tu as déjà un compte ?
           {{ " " }}
           <a
@@ -124,7 +124,7 @@ export default {
         return (textError.value = "Tous les champs sont obligatoires pour s'inscrire");
       }
       if (password.length < 8) {
-        return (textError.value = "Veuillez entrer un mot de passe fort");
+        return (textError.value = "Veuillez entrer un mot de passe fort (+ de 8 charactères)");
       }
       if (!regExEmail.test(email)) {
         return (textError.value = "Veuillez entrer un email valide");
@@ -142,7 +142,7 @@ export default {
         );
         if (!data.accessToken)
           return (textError.value =
-            "An error has occurred while register, try again later.");
+            "Un erreur s'est passé pendant l'enregistrement, essayez plus tard.");
 
         // Update session value and redirect to dashboard
         localStorage.setItem("jwt", data.accessToken);

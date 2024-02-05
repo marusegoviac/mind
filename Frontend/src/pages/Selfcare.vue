@@ -7,9 +7,8 @@
 <template>
   <div class="container static h-screen bg-white">
     <div class="h-2/5">
-      <img src="/src/assets/img/self-care.jpg" class="h-full" />
+      <img src="/src/assets/img/self-care.jpg" class="h-full mx-auto" />
     </div>
-    <!-- <ContentCard></ContentCard> -->
 
     <!--Content Area-->
     <div class="bg-creme rounded-t-lg h-3/5 w-screen pt-10 px-10 pb-0">
@@ -28,7 +27,7 @@
           :key="task.id"
           :title="task.task_title"
           :id="task.id"
-          class="flex-none bg-mint h-36 w-28 my-5 mr-5 rounded-md text-center"
+          class="flex-none bg-mint h-28 w-28 my-5 mr-5 py-8 px-2 rounded-md text-center"
           @click.prevent="
             router.push({ name: 'Task', params: { id: task.id } })
           "

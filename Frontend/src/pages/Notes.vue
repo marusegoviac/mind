@@ -21,7 +21,7 @@
     </button>
 
     <div class="h-1/5">
-      <img src="/src/assets/img/write.jpg" class="object-fill" />
+      <img src="/src/assets/img/write.jpg" />
     </div>
 
     <!--Content Area-->
@@ -39,10 +39,8 @@
           :id="note.id"
         />
       </div>
-      <div
-        v-else-if="isLoading && (!notes || !notes.length)"
-        class="mx-auto mt-32"
-      >
+
+      <div v-else-if="isLoading && notes && notes.length" class="mx-auto mt-32">
         <p class="text-medium-gray mx-10 text-center mt-4">Chargement...</p>
       </div>
       <div v-else>
@@ -99,7 +97,7 @@ export default {
     // Inject
     const sessionValue = inject("session");
     const { session } = sessionValue.get();
-    
+
     // Provider
     provide("notes", {
       request: () => getNotes(),

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
     <p class="text-medium-gray">{{ title }}</p>
   </div>
 </template>

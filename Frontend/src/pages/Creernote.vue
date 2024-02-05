@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <p v-if="textError" class="mt-2 text-sm text-medium-red">
+        <p v-if="textError" class="text-xs text-medium-red">
           {{ textError }}
         </p>
 

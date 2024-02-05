@@ -49,7 +49,7 @@
           <div
             class="flex-none bg-mint h-36 w-28 my-5 mr-5 py-3 rounded-md text-center"
           >
-            <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
+            <img src="/src/assets/img/self-care.png" class="h-20 my-2 mx-auto" />
             <p class="text-medium-gray ">Self Care</p>
           </div>
         </router-link>
@@ -57,7 +57,7 @@
           <div
             class="flex-none bg-bubble-gum h-36 w-28 my-5 mr-5 py-4 rounded-md text-center"
           >
-            <img src="/src/assets/img/signin.jpg" class="h-10 mt-7 mb-2 mx-auto" />
+            <img src="/src/assets/img/shadow-work.png" class="h-20 my-1 mx-auto" />
             <p class="text-medium-gray text-sm">Shadow Work</p>
             <p class="text-medium-gray text-xs">(Prochainement)</p>
           </div>
@@ -66,7 +66,7 @@
           <div
             class="flex-none bg-blue h-36 w-28 my-5 mr-5 py-4 rounded-md text-center"
           >
-            <img src="/src/assets/img/signin.jpg" class="h-10 mt-7 mb-2 mx-auto" />
+            <img src="/src/assets/img/excercise.png" class="h-20 my-1 mx-auto" />
             <p class="text-medium-gray text-sm">Exercise</p>
             <p class="text-medium-gray text-xs">(Prochainement)</p>
           </div>
