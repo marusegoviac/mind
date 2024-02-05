@@ -7,7 +7,7 @@
 <template>
   <div class="container static h-screen bg-white">
     <div class="h-2/5">
-      <img src="/src/assets/img/signin.jpg" class="h-full" />
+      <img src="/src/assets/img/self-care.jpg" class="h-full" />
     </div>
     <!-- <ContentCard></ContentCard> -->
 

@@ -13,7 +13,7 @@
     <!--Register Note Button-->
     <button
       type="button"
-      class="absolute top-4 right-4 p-2 text-sm font-medium text-gray bg-sunset rounded-full"
+      class="absolute top-5 right-5 p-2 text-sm font-medium text-gray bg-bubble-gum rounded-full"
       @click.prevent="router.push({ name: 'Note' })"
     >
       <img src="/src/assets/icons/plus.png" class="h-8" />
@@ -21,7 +21,7 @@
     </button>
 
     <div class="h-1/5">
-      <img src="/src/assets/img/signin.jpg" class="h-full" />
+      <img src="/src/assets/img/write.jpg" class="object-fill" />
     </div>
 
     <!--Content Area-->
@@ -36,7 +36,6 @@
           :key="note.id"
           :text="note.note_title"
           :content="note.note_content"
-          class="bg-mint h-20 w-full mb-5 py-3 px-5 rounded-md"
         />
       </div>
       <div
@@ -123,7 +122,10 @@ export default {
         notes.value = data.data;
         isLoading.value = false;
       } catch (error) {
-        console.error("An error has occurred querying notes, try again later.", error);
+        console.error(
+          "An error has occurred querying notes, try again later.",
+          error
+        );
         isLoading.value = false;
       }
     };

@@ -9,7 +9,7 @@
     <!--User button-->
     <button
       type="button"
-      class="absolute top-4 right-4 p-3  text-sm font-medium text-gray bg-sunset rounded-full"
+      class="absolute top-4 right-4 p-3 text-sm font-medium text-sunset bg-transparent rounded-full"
       @click="onLogout"
     >
       <img src="/src/assets/icons/logout.png" class="h-6" />
@@ -17,9 +17,8 @@
     </button>
 
     <div class="h-2/5">
-      <img src="/src/assets/img/signin.jpg" class="h-full" />
+      <img src="/src/assets/img/dashboard.jpg" class="h-full" />
     </div>
-    <!-- <ContentCard></ContentCard> -->
 
     <!--Content Area-->
     <div class="bg-creme rounded-t-lg h-3/5 w-screen pt-10 px-10 pb-0">
@@ -33,6 +32,7 @@
         v-if="tasks && tasks.length"
         class="mt-0 bg-creme h-48 flex flex-no-wrap overflow-x-scroll scrolling-touch hide-scroll-bar items-start"
       >
+        <!--Activities
         <Task
           v-for="task in tasks"
           :key="task.id"
@@ -42,7 +42,35 @@
           @click.prevent="
             router.push({ name: 'Task', params: { id: task.id } })
           "
-        />
+        />-->
+
+        <!--Activities-->
+        <router-link to="/self-care">
+          <div
+            class="flex-none bg-mint h-36 w-28 my-5 mr-5 py-3 rounded-md text-center"
+          >
+            <img src="/src/assets/img/signin.jpg" class="h-10 my-7 mx-auto" />
+            <p class="text-medium-gray ">Self Care</p>
+          </div>
+        </router-link>
+        <router-link to="/">
+          <div
+            class="flex-none bg-bubble-gum h-36 w-28 my-5 mr-5 py-4 rounded-md text-center"
+          >
+            <img src="/src/assets/img/signin.jpg" class="h-10 mt-7 mb-2 mx-auto" />
+            <p class="text-medium-gray text-sm">Shadow Work</p>
+            <p class="text-medium-gray text-xs">(Prochainement)</p>
+          </div>
+        </router-link>
+        <router-link to="/">
+          <div
+            class="flex-none bg-blue h-36 w-28 my-5 mr-5 py-4 rounded-md text-center"
+          >
+            <img src="/src/assets/img/signin.jpg" class="h-10 mt-7 mb-2 mx-auto" />
+            <p class="text-medium-gray text-sm">Exercise</p>
+            <p class="text-medium-gray text-xs">(Prochainement)</p>
+          </div>
+        </router-link>
       </div>
       <div
         v-else-if="isLoading && (!tasks || !tasks.length)"
@@ -133,7 +161,10 @@ export default {
         tasks.value = data.data;
         isLoading.value = false;
       } catch (error) {
-        console.error("An error has occurred querying tasks, try again later.", error);
+        console.error(
+          "An error has occurred querying tasks, try again later.",
+          error
+        );
         isLoading.value = false;
       }
     };
@@ -142,9 +173,9 @@ export default {
       // Data
       session,
       tasks,
-      // Functions
+      // Fonctions
       onLogout,
-      // Utils
+      // Outils
       router,
     };
   },
