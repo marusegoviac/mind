@@ -9,11 +9,10 @@
     <!--User button-->
     <button
       type="button"
-      class="absolute top-4 right-4 p-3 text-sm font-medium text-gray bg-sunset rounded-full"
+      class="absolute top-4 right-4 p-4  text-sm font-medium text-gray bg-sunset rounded-full"
       @click="onLogout"
     >
-      <!-- TODO: use an icon with an door and arrow pointing to out. -->
-      <img src="/src/assets/icons/settings.png" class="h-6" />
+      <img src="/src/assets/icons/logout.png" class="h-6" />
       <!-- solid style -->
     </button>
 
