@@ -1,7 +1,7 @@
 <template>
   <div class="container h-screen bg-white">
     <div class="h-2/5">
-      <img src="/src/assets/img/signin.jpg" class="h-full" />
+      <img src="/src/assets/img/login.jpg" class="h-full" />
     </div>
     <div class="bg-creme rounded-t-lg h-3/5 w-screen p-10">
       <h2 class="text-2xl text-black">Se connecter</h2>
