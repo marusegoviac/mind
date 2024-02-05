@@ -46,7 +46,7 @@
             </div>
           </div>
 
-          <p v-if="textError" class="mt-2 text-sm text-medium-red">
+          <p v-if="textError" class="text-xs text-medium-red">
             {{ textError }}
           </p>
 
@@ -130,7 +130,7 @@ export default {
         sessionValue.active();
       } catch (error) {
         textError.value =
-          "Username or password incorrect, check your data and try again";
+          "E-mail ou mot de passe incorrect";
         isLoading.value = false;
       }
     };
